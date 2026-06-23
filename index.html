@@ -369,6 +369,19 @@
   }
   .fab svg{width:28px;height:28px;color:#04140a;}
   @keyframes fabPulse{0%,100%{box-shadow:0 10px 26px rgba(37,211,102,.45);}50%{box-shadow:0 10px 36px rgba(37,211,102,.7);}}
+
+  /* floating download app button (mobile only) */
+  .fab-download {
+    position:fixed;bottom:96px;right:24px;z-index:998;
+    width:58px;height:58px;border-radius:50%;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    display:none; /* Flex when active */
+    align-items:center;justify-content:center;
+    box-shadow:0 10px 26px var(--glow);
+    cursor:pointer;transition:transform .2s ease;
+  }
+  .fab-download:hover{transform:translateY(-2px) scale(1.05);}
+  .fab-download svg{width:26px;height:26px;color:#04141a;}
 </style>
 </head>
 <body>
@@ -608,11 +621,24 @@
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.9-.4-1.8-1-2.6-1.8-.7-.7-1.3-1.5-1.7-2.4-.1-.3 0-.4.1-.6l.5-.6c.1-.2.2-.4.1-.6-.1-.2-.7-1.7-1-2.3-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.7.7-1.1 1.5-1.1 2.6.1 1.4.7 2.7 1.6 3.9 1.5 2 3.4 3.5 5.7 4.4 1.9.8 2.9.3 3.3 0 .4-.3.7-.9.8-1.5.1-.4.1-.7-.1-.8Z"/><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
 </a>
 
+<button class="fab-download" id="installAppFab" onclick="installPWA()" title="Download App">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+</button>
+
 <script>
   // ---- nav scroll state ----
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  // ---- close mobile menu on outside click ----
+  document.addEventListener('click', (e) => {
+    const menu = document.getElementById('mobileMenu');
+    const burger = document.getElementById('burger');
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !burger.contains(e.target)) {
+      menu.classList.remove('open');
+    }
   });
 
   // ---- whatsapp links ----
@@ -1172,8 +1198,13 @@
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    document.getElementById('installAppBtn').style.display = 'inline-block';
+    document.getElementById('installAppBtn').style.display = 'flex';
     document.getElementById('installAppBtnMobile').style.display = 'flex';
+    
+    // Only show the floating download button on mobile screens
+    if (window.innerWidth <= 860) {
+      document.getElementById('installAppFab').style.display = 'flex';
+    }
   });
 
   function installPWA() {
@@ -1186,6 +1217,7 @@
         deferredPrompt = null;
         document.getElementById('installAppBtn').style.display = 'none';
         document.getElementById('installAppBtnMobile').style.display = 'none';
+        document.getElementById('installAppFab').style.display = 'none';
       });
     }
   }
