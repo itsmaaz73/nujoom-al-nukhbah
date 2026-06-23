@@ -630,16 +630,23 @@
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 30);
+    // Close menu when scrolling starts
+    const menu = document.getElementById('mobileMenu');
+    if (menu.classList.contains('open')) {
+      menu.classList.remove('open');
+    }
   });
 
-  // ---- close mobile menu on outside click ----
-  document.addEventListener('click', (e) => {
+  // ---- close mobile menu on outside click or touch ----
+  const handleOutsideClick = (e) => {
     const menu = document.getElementById('mobileMenu');
     const burger = document.getElementById('burger');
     if (menu.classList.contains('open') && !menu.contains(e.target) && !burger.contains(e.target)) {
       menu.classList.remove('open');
     }
-  });
+  };
+  document.addEventListener('click', handleOutsideClick);
+  document.addEventListener('touchstart', handleOutsideClick, { passive: true });
 
   // ---- whatsapp links ----
   // Primary number powers all global CTAs (nav, hero, floating button).
