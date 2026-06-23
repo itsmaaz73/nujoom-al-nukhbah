@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nujoom Al Nukhbah Auto Maintenance</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#060c14">
+<link rel="apple-touch-icon" href="icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -35,6 +38,39 @@
   ::selection{background:var(--accent);color:#04141a;}
 
   /* ---------- NAV ---------- */
+  #installAppBtn {
+    background: rgba(20, 184, 166, 0.12);
+    color: var(--accent) !important;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(20, 184, 166, 0.3);
+    display: none; /* Flex when active */
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+  }
+  #installAppBtn:hover {
+    background: rgba(20, 184, 166, 0.22);
+    transform: translateY(-2px);
+  }
+  #installAppBtnMobile {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #04141a !important;
+    padding: 14px;
+    border-radius: 12px;
+    margin-top: 10px;
+    display: none; /* Flex when active */
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 800;
+    box-shadow: 0 8px 24px var(--glow);
+    transition: transform 0.2s ease;
+  }
+  #installAppBtnMobile:hover {
+    transform: translateY(-2px);
+  }
+  #installAppBtnMobile svg, #installAppBtn svg { width: 18px; height: 18px; }
   nav{
     position:fixed;top:0;left:0;right:0;z-index:1000;
     display:flex;align-items:center;justify-content:space-between;
@@ -100,8 +136,14 @@
 
   @media(max-width:860px){
     .nav-links{display:none;}
-    .nav-cta{padding:9px 14px;font-size:12.5px;}
+    .nav-cta{padding:8px 12px;font-size:11.5px;}
     .burger{display:flex;}
+    nav{gap:12px;}
+    .logo-mark{width:36px;height:36px;border-radius:10px;}
+    .logo-mark svg{width:20px;height:20px;}
+    .logo-text .brand-name{font-size:14px;}
+    .logo-text small{font-size:9px;letter-spacing:2px;}
+    .logo{gap:10px;}
   }
 
   /* ---------- HERO ---------- */
@@ -351,6 +393,12 @@
     <li><a href="#tips">Health Tips</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#visit">Visit Us</a></li>
+    <li>
+      <a id="installAppBtn" onclick="installPWA()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Install App
+      </a>
+    </li>
   </ul>
   <a class="nav-cta" id="navBook" href="#" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.9-.4-1.8-1-2.6-1.8-.7-.7-1.3-1.5-1.7-2.4-.1-.3 0-.4.1-.6l.5-.6c.1-.2.2-.4.1-.6-.1-.2-.7-1.7-1-2.3-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.7.7-1.1 1.5-1.1 2.6.1 1.4.7 2.7 1.6 3.9 1.5 2 3.4 3.5 5.7 4.4 1.9.8 2.9.3 3.3 0 .4-.3.7-.9.8-1.5.1-.4.1-.7-.1-.8Z"/><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
@@ -367,6 +415,10 @@
   <a href="#tips" onclick="document.getElementById('mobileMenu').classList.remove('open')">Health Tips</a>
   <a href="#services" onclick="document.getElementById('mobileMenu').classList.remove('open')">Services</a>
   <a href="#visit" onclick="document.getElementById('mobileMenu').classList.remove('open')">Visit Us</a>
+  <a id="installAppBtnMobile" onclick="installPWA()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Download Free App
+  </a>
 </div>
 
 <section class="hero" id="home">
@@ -474,8 +526,8 @@
   <div class="section-inner">
     <div class="section-head reveal">
       <span class="eyebrow">What We Do</span>
-      <h2>General maintenance & diagnostics</h2>
-      <p>Full-service care for everyday driving, handled by experienced hands.</p>
+      <h2>Complete auto care & precision diagnostics</h2>
+      <p>Expert-level service for every vehicle, delivered with care and precision by experienced technicians.</p>
     </div>
     <div class="services-grid">
       <div class="service-card reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="12" rx="2"/><path d="M6 11h.01M6 15h.01"/><path d="M11 11h7M11 15h7"/></svg><h4>Computer Diagnostics</h4><p>Full OBD scan to pinpoint warning lights and hidden faults.</p></div>
@@ -484,7 +536,7 @@
       <div class="service-card reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="9" width="16" height="8" rx="1"/><path d="M22 11v4M6 9V7a2 2 0 0 1 2-2h4"/></svg><h4>Battery Testing & Replacement</h4><p>Load testing and same-day replacement when needed.</p></div>
       <div class="service-card reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v3M12 20v3M4.2 4.2l2.2 2.2M17.6 17.6l2.2 2.2M1 12h3M20 12h3M4.2 19.8l2.2-2.2M17.6 6.4l2.2-2.2"/></svg><h4>AC Service & Repair</h4><p>Re-gassing, leak checks, and compressor diagnostics.</p></div>
       <div class="service-card reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2v7l3 3-3 3v7M10 2v7l-3 3 3 3v7"/></svg><h4>Suspension & Steering</h4><p>Smoother rides through worn-part inspection and repair.</p></div>
-      <div class="service-card reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></svg><h4>Wheel Alignment & Balancing</h4><p>Even tire wear and a straighter, steadier drive.</p></div>
+      <div class="service-card reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8Z"/></svg><h4>Engine Performance Tuning</h4><p>Fuel system cleaning, throttle calibration, and power optimization for peak performance.</p></div>
       <div class="service-card reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><h4>General Periodic Maintenance</h4><p>Full check-ups that keep small issues from becoming big ones.</p></div>
     </div>
   </div>
@@ -1114,6 +1166,39 @@
 
   // greeting
   addMessage('bot', "Hi, I'm the Nujoom AI assistant. Tell me what's going on with your car — a sound, a light, anything unusual — and I'll help you figure out the next step.");
+
+  // ---- PWA Install Logic ----
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    document.getElementById('installAppBtn').style.display = 'inline-block';
+    document.getElementById('installAppBtnMobile').style.display = 'flex';
+  });
+
+  function installPWA() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the install prompt');
+        }
+        deferredPrompt = null;
+        document.getElementById('installAppBtn').style.display = 'none';
+        document.getElementById('installAppBtnMobile').style.display = 'none';
+      });
+    }
+  }
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').then(registration => {
+        console.log('SW registered: ', registration.scope);
+      }).catch(err => {
+        console.log('SW registration failed: ', err);
+      });
+    });
+  }
 </script>
 
 </body>

@@ -1,0 +1,17 @@
+{
+  "name": "Nujoom Al Nukhbah Auto Maintenance",
+  "short_name": "Nujoom Auto",
+  "description": "Trusted Auto Maintenance Garage in Sharjah",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#060c14",
+  "theme_color": "#060c14",
+  "icons": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
