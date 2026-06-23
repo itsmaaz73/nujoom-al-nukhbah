@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nujoom Al Nukhbah Auto Maintenance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#060c14;
+    --bg2:#0a131f;
+    --card:#0f1d2c;
+    --card2:#122436;
+    --accent:#14b8a6;
+    --accent2:#38bdf8;
+    --text:#e8f3f6;
+    --text-dim:#8aa3b3;
+    --border:rgba(255,255,255,0.08);
+    --glow:rgba(20,184,166,0.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Outfit',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    overflow-x:hidden;
+    line-height:1.5;
+  }
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  ::selection{background:var(--accent);color:#04141a;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 24px;
+    transition:background .35s ease,backdrop-filter .35s ease,border-color .35s ease;
+    border-bottom:1px solid transparent;
+  }
+  nav.scrolled{
+    background:rgba(6,12,20,0.85);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border);
+  }
+  .logo{display:flex;align-items:center;gap:14px;font-weight:700;font-size:15px;letter-spacing:.3px;}
+  .logo-mark{
+    width:44px;height:44px;border-radius:13px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    box-shadow:0 0 22px var(--glow),inset 0 1px 1px rgba(255,255,255,0.25);
+    position:relative;
+    animation:logoGlow 3s ease-in-out infinite;
+  }
+  @keyframes logoGlow{
+    0%,100%{box-shadow:0 0 22px var(--glow),inset 0 1px 1px rgba(255,255,255,0.25);}
+    50%{box-shadow:0 0 32px rgba(20,184,166,0.55),0 0 60px rgba(56,189,248,0.2),inset 0 1px 1px rgba(255,255,255,0.25);}
+  }
+  .logo-mark svg{width:24px;height:24px;}
+  .logo-text{display:flex;flex-direction:column;line-height:1.15;}
+  .logo-text .brand-name{
+    font-size:18px;font-weight:800;letter-spacing:0.5px;
+    background:linear-gradient(135deg,#ffffff 0%,var(--accent) 50%,var(--accent2) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    background-size:200% 200%;
+    animation:brandShimmer 4s ease-in-out infinite;
+  }
+  @keyframes brandShimmer{
+    0%,100%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+  }
+  .logo-text small{font-weight:600;font-size:10.5px;color:var(--text-dim);letter-spacing:2.5px;text-transform:uppercase;}
+  .nav-links{display:flex;gap:30px;align-items:center;}
+  .nav-links a{font-size:14px;color:var(--text-dim);font-weight:500;transition:color .2s;position:relative;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{
+    display:flex;align-items:center;gap:8px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    color:#04141a;font-weight:700;font-size:13.5px;
+    padding:10px 18px;border-radius:30px;
+    box-shadow:0 4px 18px var(--glow);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--glow);}
+  .nav-cta svg{width:16px;height:16px;}
+  .burger{display:none;width:24px;height:18px;position:relative;flex-direction:column;justify-content:space-between;}
+  .burger span{display:block;height:2px;width:100%;background:var(--text);border-radius:2px;}
+  .mobile-menu{
+    display:none;position:fixed;top:64px;left:0;right:0;background:rgba(8,15,24,0.98);
+    backdrop-filter:blur(20px);z-index:999;padding:20px 24px 30px;border-bottom:1px solid var(--border);
+    flex-direction:column;gap:18px;
+  }
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-size:15px;color:var(--text-dim);font-weight:500;}
+
+  @media(max-width:860px){
+    .nav-links{display:none;}
+    .nav-cta{padding:9px 14px;font-size:12.5px;}
+    .burger{display:flex;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:140px 20px 80px;
+    overflow:hidden;
+  }
+  .hero-bg{position:absolute;inset:0;z-index:0;}
+  .blob{
+    position:absolute;border-radius:50%;filter:blur(70px);opacity:.45;
+    animation:float 14s ease-in-out infinite;
+  }
+  .blob1{width:420px;height:420px;background:var(--accent);top:-120px;left:-100px;}
+  .blob2{width:380px;height:380px;background:var(--accent2);bottom:-140px;right:-80px;animation-delay:-6s;}
+  .blob3{width:280px;height:280px;background:#2dd4bf;top:40%;left:55%;animation-delay:-3s;opacity:.25;}
+  @keyframes float{
+    0%,100%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(40px,-30px) scale(1.08);}
+  }
+  .grid-overlay{
+    position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,0.035) 1px,transparent 1px),
+                      linear-gradient(90deg,rgba(255,255,255,0.035) 1px,transparent 1px);
+    background-size:42px 42px;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 30%,black 40%,transparent 90%);
+  }
+  .hero-content{position:relative;z-index:1;max-width:780px;}
+  .badge{
+    display:inline-flex;align-items:center;gap:7px;
+    background:var(--card);border:1px solid var(--border);
+    padding:7px 16px;border-radius:30px;font-size:12.5px;color:var(--text-dim);
+    margin-bottom:26px;font-weight:600;letter-spacing:.3px;
+    animation:fadeInUp .8s ease both;
+  }
+  .badge .stars{color:#fbbf24;letter-spacing:1px;}
+  h1{
+    font-size:clamp(34px,6vw,62px);font-weight:800;line-height:1.08;letter-spacing:-1px;
+    margin-bottom:20px;animation:fadeInUp .8s ease .08s both;
+  }
+  h1 span{
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.sub{
+    font-size:clamp(15px,2vw,18px);color:var(--text-dim);max-width:560px;margin:0 auto 38px;
+    animation:fadeInUp .8s ease .16s both;
+  }
+  .hero-ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;animation:fadeInUp .8s ease .24s both;}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:15px 28px;border-radius:14px;font-weight:700;font-size:14.5px;
+    transition:transform .2s ease,box-shadow .2s ease;
+  }
+  .btn svg{width:18px;height:18px;}
+  .btn-primary{
+    background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04141a;
+    box-shadow:0 8px 28px var(--glow);
+  }
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 36px var(--glow);}
+  .btn-ghost{
+    background:var(--card);border:1px solid var(--border);color:var(--text);
+  }
+  .btn-ghost:hover{border-color:var(--accent);transform:translateY(-3px);}
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+
+  .scroll-cue{
+    position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--text-dim);font-size:11px;
+    letter-spacing:1.5px;animation:fadeInUp 1s ease .5s both;
+  }
+  .scroll-cue .line{width:1px;height:28px;background:linear-gradient(var(--accent),transparent);animation:scrollMove 1.8s ease-in-out infinite;}
+  @keyframes scrollMove{0%{opacity:0;}50%{opacity:1;}100%{opacity:0;}}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:110px 24px;position:relative;}
+  .section-inner{max-width:1140px;margin:0 auto;}
+  .section-head{text-align:center;max-width:620px;margin:0 auto 56px;}
+  .eyebrow{
+    color:var(--accent);font-weight:700;font-size:12.5px;letter-spacing:2px;text-transform:uppercase;
+    margin-bottom:12px;display:block;
+  }
+  .section-head h2{font-size:clamp(26px,4vw,40px);font-weight:800;letter-spacing:-0.5px;margin-bottom:14px;}
+  .section-head p{color:var(--text-dim);font-size:15.5px;}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- AI ASSISTANT ---------- */
+  .ai-section{background:linear-gradient(180deg,transparent,rgba(20,184,166,0.04),transparent);}
+  .chat-shell{
+    max-width:760px;margin:0 auto;background:var(--card);border:1px solid var(--border);
+    border-radius:24px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.5);
+  }
+  .chat-head{
+    display:flex;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--border);
+    background:var(--card2);
+  }
+  .chat-head .dot{width:9px;height:9px;border-radius:50%;background:#34d399;box-shadow:0 0 10px #34d399;animation:pulseDot 2s infinite;}
+  @keyframes pulseDot{0%,100%{opacity:1;}50%{opacity:.4;}}
+  .chat-head .title{font-weight:700;font-size:14.5px;}
+  .chat-head .subtitle{font-size:12px;color:var(--text-dim);}
+  .chat-body{
+    height:430px;overflow-y:auto;padding:22px;display:flex;flex-direction:column;gap:14px;
+    scroll-behavior:smooth;
+  }
+  .chat-body::-webkit-scrollbar{width:6px;}
+  .chat-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px;}
+  .msg{max-width:82%;padding:12px 16px;border-radius:16px;font-size:14px;line-height:1.55;animation:msgIn .35s ease both;white-space:pre-wrap;}
+  @keyframes msgIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  .msg.bot{background:var(--card2);border:1px solid var(--border);align-self:flex-start;border-bottom-left-radius:4px;}
+  .msg.user{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04141a;align-self:flex-end;border-bottom-right-radius:4px;font-weight:500;}
+  .typing{display:flex;gap:5px;align-self:flex-start;padding:14px 16px;background:var(--card2);border:1px solid var(--border);border-radius:16px;}
+  .typing span{width:7px;height:7px;border-radius:50%;background:var(--text-dim);animation:typingBounce 1.2s infinite;}
+  .typing span:nth-child(2){animation-delay:.15s;}
+  .typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes typingBounce{0%,60%,100%{transform:translateY(0);opacity:.4;}30%{transform:translateY(-5px);opacity:1;}}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;padding:0 22px 16px;}
+  .chip{
+    font-size:12.5px;color:var(--text-dim);background:var(--card2);border:1px solid var(--border);
+    padding:8px 14px;border-radius:20px;transition:all .2s ease;
+  }
+  .chip:hover{border-color:var(--accent);color:var(--text);transform:translateY(-2px);}
+  .chat-input-row{display:flex;gap:10px;padding:16px 18px;border-top:1px solid var(--border);background:var(--card2);}
+  .chat-input-row input{
+    flex:1;background:var(--bg);border:1px solid var(--border);border-radius:12px;
+    padding:13px 16px;color:var(--text);font-size:14px;outline:none;transition:border-color .2s;
+  }
+  .chat-input-row input:focus{border-color:var(--accent);}
+  .send-btn{
+    width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .2s;
+  }
+  .send-btn:hover{transform:scale(1.06);}
+  .send-btn svg{width:19px;height:19px;color:#04141a;}
+  .send-btn:disabled{opacity:.5;cursor:not-allowed;}
+  .ai-disclaimer{text-align:center;font-size:12px;color:var(--text-dim);margin-top:16px;}
+
+  /* ---------- TIPS ---------- */
+  .tips-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  @media(max-width:860px){.tips-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.tips-grid{grid-template-columns:1fr;}}
+  .tip-card{
+    background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;
+    transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+  }
+  .tip-card:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:0 16px 36px -16px var(--glow);}
+  .tip-icon{
+    width:46px;height:46px;border-radius:12px;background:rgba(20,184,166,0.12);
+    display:flex;align-items:center;justify-content:center;margin-bottom:16px;
+  }
+  .tip-icon svg{width:23px;height:23px;color:var(--accent);}
+  .tip-card h3{font-size:16px;font-weight:700;margin-bottom:8px;}
+  .tip-card p{font-size:13.5px;color:var(--text-dim);}
+
+  /* ---------- SERVICES ---------- */
+  .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  @media(max-width:980px){.services-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.services-grid{grid-template-columns:1fr;}}
+  .service-card{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;
+    display:flex;flex-direction:column;gap:10px;transition:.25s ease;
+  }
+  .service-card:hover{border-color:var(--accent2);transform:translateY(-4px);}
+  .service-card svg{width:24px;height:24px;color:var(--accent2);}
+  .service-card h4{font-size:14.5px;font-weight:700;}
+  .service-card p{font-size:12.5px;color:var(--text-dim);}
+
+  /* ---------- CONTACT / MAP ---------- */
+  .contact-wrap{
+    display:grid;grid-template-columns:1fr 1fr;gap:30px;
+    background:var(--card);border:1px solid var(--border);border-radius:24px;overflow:hidden;
+  }
+  @media(max-width:860px){.contact-wrap{grid-template-columns:1fr;}}
+  .contact-info{padding:42px;display:flex;flex-direction:column;gap:24px;justify-content:center;}
+  .contact-row{display:flex;gap:16px;align-items:flex-start;}
+  .contact-row .ic{
+    width:42px;height:42px;border-radius:11px;background:rgba(20,184,166,.12);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .contact-row .ic svg{width:20px;height:20px;color:var(--accent);}
+  .contact-row h4{font-size:14.5px;font-weight:700;margin-bottom:4px;}
+  .contact-row p, .contact-row a.addr{font-size:13.5px;color:var(--text-dim);}
+  .contact-row a.addr:hover{color:var(--accent);}
+  .map-frame{min-height:340px;position:relative;}
+  .map-frame iframe{width:100%;height:100%;border:0;display:block;filter:invert(0.92) hue-rotate(180deg) contrast(0.9);}
+  .directions-btn{
+    position:absolute;bottom:16px;left:16px;
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--card);border:1px solid var(--border);color:var(--text);
+    padding:10px 16px;border-radius:12px;font-size:13px;font-weight:700;
+    box-shadow:0 8px 20px rgba(0,0,0,.35);
+    transition:transform .2s ease,border-color .2s ease;
+  }
+  .directions-btn:hover{transform:translateY(-2px);border-color:var(--accent);}
+  .directions-btn svg{width:16px;height:16px;color:var(--accent);}
+
+  .phone-block{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
+  .phone-line{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .phone-line a.tel{font-size:13.5px;color:var(--text-dim);font-weight:600;transition:color .2s;}
+  .phone-line a.tel:hover{color:var(--accent);}
+  .wa-mini{
+    display:inline-flex;align-items:center;gap:6px;
+    background:linear-gradient(135deg,#25D366,#1ebe5d);color:#000;font-weight:700;font-size:12px;
+    padding:7px 13px;border-radius:20px;box-shadow:0 6px 16px rgba(37,211,102,.3);
+    transition:transform .2s ease;
+  }
+  .wa-mini:hover{transform:translateY(-2px);}
+  .wa-mini svg{width:13px;height:13px;color:#000;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:40px 24px;border-top:1px solid var(--border);text-align:center;color:var(--text-dim);font-size:13px;}
+  footer .floc{margin-top:6px;font-size:12px;}
+
+  /* floating whatsapp button */
+  .fab{
+    position:fixed;bottom:24px;right:24px;z-index:998;
+    width:58px;height:58px;border-radius:50%;
+    background:linear-gradient(135deg,#25D366,#1ebe5d);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 26px rgba(37,211,102,.45);
+    animation:fabPulse 2.4s infinite;
+  }
+  .fab svg{width:28px;height:28px;color:#04140a;}
+  @keyframes fabPulse{0%,100%{box-shadow:0 10px 26px rgba(37,211,102,.45);}50%{box-shadow:0 10px 36px rgba(37,211,102,.7);}}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#04141a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M12 1v3M12 20v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M1 12h3M20 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
+        <circle cx="12" cy="12" r="7" stroke-dasharray="3 2" opacity="0.5"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <span class="brand-name">NUJOOM AL NUKHBAH</span>
+      <small>AUTO MAINTENANCE</small>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#assistant">AI Assistant</a></li>
+    <li><a href="#tips">Health Tips</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#visit">Visit Us</a></li>
+  </ul>
+  <a class="nav-cta" id="navBook" href="#" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.9-.4-1.8-1-2.6-1.8-.7-.7-1.3-1.5-1.7-2.4-.1-.3 0-.4.1-.6l.5-.6c.1-.2.2-.4.1-.6-.1-.2-.7-1.7-1-2.3-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.7.7-1.1 1.5-1.1 2.6.1 1.4.7 2.7 1.6 3.9 1.5 2 3.4 3.5 5.7 4.4 1.9.8 2.9.3 3.3 0 .4-.3.7-.9.8-1.5.1-.4.1-.7-.1-.8Z"/><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
+    Book a Visit
+  </a>
+  <div class="burger" id="burger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" onclick="document.getElementById('mobileMenu').classList.remove('open')">Home</a>
+  <a href="#assistant" onclick="document.getElementById('mobileMenu').classList.remove('open')">AI Assistant</a>
+  <a href="#tips" onclick="document.getElementById('mobileMenu').classList.remove('open')">Health Tips</a>
+  <a href="#services" onclick="document.getElementById('mobileMenu').classList.remove('open')">Services</a>
+  <a href="#visit" onclick="document.getElementById('mobileMenu').classList.remove('open')">Visit Us</a>
+</div>
+
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <div class="badge"><span class="stars">★★★★★</span> 4.9 on Google · Sharjah, UAE</div>
+    <h1>Smarter Car Care, <span>Starts Right Here</span></h1>
+    <p class="sub">Tell our AI assistant what's wrong with your vehicle. Get an honest, instant read on whether you can fix it yourself — or exactly when it's time to bring it in.</p>
+    <div class="hero-ctas">
+      <a href="#assistant" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4v1a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4Z"/><path d="M5 11v1a7 7 0 0 0 14 0v-1M12 19v3M9 22h6"/></svg>
+        Ask the AI Assistant
+      </a>
+      <a id="heroBook" class="btn btn-ghost" href="#visit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Visit Our Garage
+      </a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>SCROLL</span><div class="line"></div></div>
+</section>
+
+<section id="assistant" class="ai-section">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="eyebrow">AI Vehicle Assistant</span>
+      <h2>What's going on with your car?</h2>
+      <p>Describe the symptoms — sounds, smells, warning lights, anything. The assistant will ask what it needs to know, then tell you straight: fix it yourself, or come see us.</p>
+    </div>
+
+    <div class="chat-shell reveal">
+      <div class="chat-head">
+        <div class="dot"></div>
+        <div>
+          <div class="title">Nujoom AI Assistant</div>
+          <div class="subtitle">Online · Honest diagnostics, no upsell</div>
+        </div>
+      </div>
+      <div class="chat-body" id="chatBody"></div>
+      <div class="chips" id="chips">
+        <button class="chip" onclick="quickSend('My car makes a grinding noise when I brake')">Grinding noise when braking</button>
+        <button class="chip" onclick="quickSend('Engine warning light just turned on')">Engine light is on</button>
+        <button class="chip" onclick="quickSend('My car won\'t start, just clicking sound')">Car won't start</button>
+        <button class="chip" onclick="quickSend('AC is blowing warm air')">AC blowing warm air</button>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" id="chatInput" placeholder="Describe what's happening with your car..." onkeydown="if(event.key==='Enter')sendMessage()">
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg>
+        </button>
+      </div>
+    </div>
+    <p class="ai-disclaimer">AI guidance is for general help only and isn't a substitute for a professional inspection on safety-critical issues.</p>
+  </div>
+</section>
+
+<section id="tips">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="eyebrow">Vehicle Health</span>
+      <h2>Keep your car healthy between visits</h2>
+      <p>Small habits that prevent big repair bills — especially in Gulf heat and dust.</p>
+    </div>
+    <div class="tips-grid">
+      <div class="tip-card reveal">
+        <div class="tip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></div>
+        <h3>Check tire pressure monthly</h3>
+        <p>Under-inflated tires wear faster, hurt fuel economy, and raise blowout risk in summer heat.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M5 12H2M22 12h-3M12 22v-6"/><circle cx="12" cy="12" r="4"/></svg></div>
+        <h3>Stick to your oil schedule</h3>
+        <p>Fresh oil protects the engine. Skipping changes is the single biggest cause of early engine wear.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.7 3.86a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg></div>
+        <h3>Never ignore a warning light</h3>
+        <p>A light on the dashboard is your car asking for help early — before it becomes an expensive problem.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="9" width="16" height="8" rx="1"/><path d="M22 11v4M6 9V7a2 2 0 0 1 2-2h4"/></svg></div>
+        <h3>Keep battery terminals clean</h3>
+        <p>Corrosion build-up is a common cause of no-start issues, especially with heavy AC use in summer.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h3l3-9 4 18 3-9h7"/></svg></div>
+        <h3>Listen for new noises</h3>
+        <p>Grinding, squealing, or knocking sounds rarely fix themselves. Catching them early saves money.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v3M12 20v3M4.2 4.2l2.2 2.2M17.6 17.6l2.2 2.2M1 12h3M20 12h3M4.2 19.8l2.2-2.2M17.6 6.4l2.2-2.2"/></svg></div>
+        <h3>Service AC before peak summer</h3>
+        <p>Have the system checked before the heat hits hard — refrigerant and compressor issues get worse fast.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="eyebrow">What We Do</span>
+      <h2>General maintenance & diagnostics</h2>
+      <p>Full-service care for everyday driving, handled by experienced hands.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="12" rx="2"/><path d="M6 11h.01M6 15h.01"/><path d="M11 11h7M11 15h7"/></svg><h4>Computer Diagnostics</h4><p>Full OBD scan to pinpoint warning lights and hidden faults.</p></div>
+      <div class="service-card reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M5 12H2M22 12h-3M12 22v-6"/><circle cx="12" cy="12" r="4"/></svg><h4>Oil & Filter Change</h4><p>Quality oil and filters, done on schedule, no shortcuts.</p></div>
+      <div class="service-card reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg><h4>Brake Inspection & Repair</h4><p>Pads, discs, and fluid checked and replaced safely.</p></div>
+      <div class="service-card reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="9" width="16" height="8" rx="1"/><path d="M22 11v4M6 9V7a2 2 0 0 1 2-2h4"/></svg><h4>Battery Testing & Replacement</h4><p>Load testing and same-day replacement when needed.</p></div>
+      <div class="service-card reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v3M12 20v3M4.2 4.2l2.2 2.2M17.6 17.6l2.2 2.2M1 12h3M20 12h3M4.2 19.8l2.2-2.2M17.6 6.4l2.2-2.2"/></svg><h4>AC Service & Repair</h4><p>Re-gassing, leak checks, and compressor diagnostics.</p></div>
+      <div class="service-card reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2v7l3 3-3 3v7M10 2v7l-3 3 3 3v7"/></svg><h4>Suspension & Steering</h4><p>Smoother rides through worn-part inspection and repair.</p></div>
+      <div class="service-card reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></svg><h4>Wheel Alignment & Balancing</h4><p>Even tire wear and a straighter, steadier drive.</p></div>
+      <div class="service-card reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><h4>General Periodic Maintenance</h4><p>Full check-ups that keep small issues from becoming big ones.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="visit">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="eyebrow">Find Us</span>
+      <h2>Come see us in person</h2>
+      <p>Open daily except Fridays. Walk in, call, or send a WhatsApp message.</p>
+    </div>
+    <div class="contact-wrap reveal">
+      <div class="contact-info">
+        <div class="contact-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div>
+            <h4>Address</h4>
+            <a class="addr" href="https://www.google.com/maps/dir/?api=1&destination=25.3212008,55.4391981" target="_blank" rel="noopener">Garage no: A04, Industrial Area 12, University City Rd, Sharjah</a>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <div>
+            <h4>Working Hours</h4>
+            <p>Sat – Thu: 9:00 AM – 10:00 PM<br>Closed on Fridays</p>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"/></svg></div>
+          <div style="width:100%;">
+            <h4>Call or WhatsApp</h4>
+            <div class="phone-block">
+              <div class="phone-line">
+                <a class="tel" href="tel:+971508542006">+971 50 854 2006</a>
+                <a class="wa-mini" id="waLink1" href="#" target="_blank">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.9-.4-1.8-1-2.6-1.8-.7-.7-1.3-1.5-1.7-2.4-.1-.3 0-.4.1-.6l.5-.6c.1-.2.2-.4.1-.6-.1-.2-.7-1.7-1-2.3-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.7.7-1.1 1.5-1.1 2.6.1 1.4.7 2.7 1.6 3.9 1.5 2 3.4 3.5 5.7 4.4 1.9.8 2.9.3 3.3 0 .4-.3.7-.9.8-1.5.1-.4.1-.7-.1-.8Z"/><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
+                  Chat
+                </a>
+              </div>
+              <div class="phone-line">
+                <a class="tel" href="tel:+971526826930">+971 52 682 6930</a>
+                <a class="wa-mini" id="waLink2" href="#" target="_blank">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.9-.4-1.8-1-2.6-1.8-.7-.7-1.3-1.5-1.7-2.4-.1-.3 0-.4.1-.6l.5-.6c.1-.2.2-.4.1-.6-.1-.2-.7-1.7-1-2.3-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.7.7-1.1 1.5-1.1 2.6.1 1.4.7 2.7 1.6 3.9 1.5 2 3.4 3.5 5.7 4.4 1.9.8 2.9.3 3.3 0 .4-.3.7-.9.8-1.5.1-.4.1-.7-.1-.8Z"/><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
+                  Chat
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="map-frame">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d837.8675843985776!2d55.439684345972324!3d25.321539955031923!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5f66ec5b6837%3A0xad2d2fbcd5cdfb7d!2sNujoom%20Al%20Nukhbah%20Auto%20Maintenance!5e1!3m2!1sen!2s!4v1782190774779!5m2!1sen!2s" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <a class="directions-btn" href="https://www.google.com/maps/dir/?api=1&destination=25.3212008,55.4391981" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          Get Directions
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© <span id="year"></span> Nujoom Al Nukhbah Auto Maintenance. All rights reserved.</div>
+  <div class="floc">Garage no: A04, Industrial Area 12, University City Rd, Sharjah · +971 50 854 2006</div>
+</footer>
+
+<a class="fab" id="fab" href="#" target="_blank">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.9-.4-1.8-1-2.6-1.8-.7-.7-1.3-1.5-1.7-2.4-.1-.3 0-.4.1-.6l.5-.6c.1-.2.2-.4.1-.6-.1-.2-.7-1.7-1-2.3-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.7.7-1.1 1.5-1.1 2.6.1 1.4.7 2.7 1.6 3.9 1.5 2 3.4 3.5 5.7 4.4 1.9.8 2.9.3 3.3 0 .4-.3.7-.9.8-1.5.1-.4.1-.7-.1-.8Z"/><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
+</a>
+
+<script>
+  // ---- nav scroll state ----
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  // ---- whatsapp links ----
+  // Primary number powers all global CTAs (nav, hero, floating button).
+  const primaryNumber = '971508542006';
+  // Secondary number.
+  const secondaryNumber = '971526826930';
+  const waText = encodeURIComponent("Hello, I'd like to book a visit to Nujoom Al Nukhbah Auto Maintenance.");
+
+  const primaryWaUrl = `https://wa.me/${primaryNumber}?text=${waText}`;
+  document.getElementById('navBook').href = primaryWaUrl;
+  // heroBook now scrolls to #visit section, no WhatsApp override needed
+  document.getElementById('fab').href = primaryWaUrl;
+
+  document.getElementById('waLink1').href = `https://wa.me/${primaryNumber}?text=${waText}`;
+  document.getElementById('waLink2').href = `https://wa.me/${secondaryNumber}?text=${waText}`;
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---- reveal on scroll ----
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  // ---- AI chat (built-in knowledge engine) ----
+  const chatBody = document.getElementById('chatBody');
+  const chatInput = document.getElementById('chatInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const chipsEl = document.getElementById('chips');
+
+  // Comprehensive car diagnostic knowledge base
+  const KB = [
+    // ======== BRAKES ========
+    {
+      keywords: ['grinding','grind','brake','braking','screech','squeal','squeak','brake noise','brake sound','brake pedal'],
+      followUp: 'Does the noise happen only when braking, or also while just driving? And roughly how long has this been going on?',
+      responses: [
+        {
+          match: ['only braking','when brake','when i brake','press brake','hit brake','apply brake'],
+          text: "Grinding or squealing only when braking usually means your brake pads are worn down to the metal. This is a safety-critical item — the longer you drive, the more damage it does to your rotors, making the repair more expensive.\n\nUrgency: Soon — within the next few days.\n\nBring it to Nujoom Al Nukhbah and we'll inspect the pads, rotors, and brake fluid. Our address: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call/WhatsApp: +971 50 854 2006."
+        },
+        {
+          match: ['while driving','always','constant','all the time','without braking','not braking'],
+          text: "If the grinding is constant (even without pressing the brakes), it could be a stuck brake caliper, a warped rotor, or a wheel bearing issue. All of these affect your safety.\n\nUrgency: Soon — get it checked within a couple of days.\n\nDon't ignore this one. Drive carefully and bring it to our garage — Garage no: A04, Industrial Area 12, University City Rd, Sharjah. WhatsApp us: +971 50 854 2006."
+        }
+      ],
+      fallback: "Brake noises — whether grinding, squealing, or scraping — almost always mean your pads need attention. Since brakes are safety-critical, I wouldn't recommend a DIY fix here.\n\nUrgency: Soon — within the next few days.\n\nBring it to Nujoom Al Nukhbah for a proper brake inspection. We're at Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call/WhatsApp: +971 50 854 2006."
+    },
+    // ======== ENGINE LIGHT ========
+    {
+      keywords: ['engine light','check engine','engine warning','cel','engine lamp','malfunction indicator','mil light','engine icon'],
+      followUp: 'Is the engine light steady (constant) or flashing/blinking? And have you noticed any change in how the car drives — rough idle, loss of power, unusual smell?',
+      responses: [
+        {
+          match: ['flash','blink','flashing','blinking'],
+          text: "A flashing engine light means there's an active misfire that could damage your catalytic converter — this is serious.\n\nUrgency: Urgent — stop driving if possible and get it inspected immediately.\n\nCall us right away at +971 50 854 2006 and we can advise if it's safe to drive here or if you should get it towed. We're at Garage no: A04, Industrial Area 12, University City Rd, Sharjah."
+        },
+        {
+          match: ['steady','constant','solid','stays on','not flashing','not blinking'],
+          text: "A steady check engine light means something needs attention but isn't immediately critical. Common causes: a loose gas cap, oxygen sensor, catalytic converter issue, or a failing spark plug.\n\nQuick check: make sure your gas cap is tightened fully — click it until it stops. If the light stays on after a few drive cycles, you'll need a diagnostic scan.\n\nUrgency: Routine — schedule within a week or two.\n\nWe can do a full OBD scan at our garage. Garage no: A04, Industrial Area 12, University City Rd, Sharjah. WhatsApp: +971 50 854 2006."
+        }
+      ],
+      fallback: "The check engine light can mean many things — from a loose gas cap to a serious engine issue. Here's what to do right now:\n\n1. Check if your gas cap is loose — tighten it fully until it clicks.\n2. If the light is flashing, stop driving — this is urgent.\n3. If it's steady, you're okay to drive but get it scanned soon.\n\nUrgency: Routine to Soon, depending on symptoms.\n\nWe offer free OBD diagnostic scans. Come by: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+    },
+    // ======== WON'T START / CLICKING ========
+    {
+      keywords: ['won\'t start','wont start','not starting','no start','doesn\'t start','doesnt start','click','clicking','cranking','won\'t turn','wont turn','dead','won\'t crank','wont crank','starter'],
+      followUp: 'When you turn the key (or press start), what exactly happens? Do you hear rapid clicking, a single click, silence, or does the engine try to turn over slowly?',
+      responses: [
+        {
+          match: ['rapid click','fast click','multiple click','clicking','many clicks'],
+          text: "Rapid clicking when you try to start is classic dead battery. Good news — this is usually a simple fix!\n\nDIY steps you can try:\n1. Check the battery terminals — if you see white/green crusty buildup, that's corrosion blocking the connection.\n2. If you have another car, try a jump start: connect red to positive (+), black to negative (−) on the good battery, and ground on your engine block.\n3. Let it charge for 2-3 minutes before starting.\n\nIf it starts, drive for at least 20 minutes to recharge. If the battery keeps dying, it needs replacement.\n\nNeed a new battery? Come by and we'll test and replace it same-day. +971 50 854 2006."
+        },
+        {
+          match: ['single click','one click','nothing','silence','silent','no sound','no noise'],
+          text: "A single click or complete silence points to either a severely dead battery or a starter motor issue.\n\n1. Try turning on your headlights — if they're very dim or won't turn on, the battery is completely dead and needs a jump or replacement.\n2. If the lights work fine but you just get one click, the starter motor is likely the problem.\n\nStarter motor replacement is not a DIY job.\n\nUrgency: Soon — you'll need a tow or jump to get here.\n\nCall us and we'll help you figure out next steps: +971 50 854 2006. Garage no: A04, Industrial Area 12, University City Rd, Sharjah."
+        },
+        {
+          match: ['slow','sluggish','weak','barely','tries','turns slow'],
+          text: "Slow cranking means your battery has some charge but not enough. This is very common in Gulf heat — batteries degrade faster in extreme temperatures.\n\nTry a jump start first. If it works, drive for 20+ minutes to recharge. If it keeps happening, the battery needs replacement (most last 2-3 years in this climate).\n\nWe can test your battery and charging system. Same-day replacement available. Garage no: A04, Industrial Area 12, University City Rd, Sharjah. WhatsApp: +971 50 854 2006."
+        }
+      ],
+      fallback: "A car that won't start is usually one of three things: dead battery (most common), bad starter motor, or fuel/ignition issue.\n\nQuick checks:\n1. Turn on headlights — dim or dead? Battery issue. Try a jump start.\n2. Lights bright but just clicking? Likely starter motor.\n3. Engine cranks normally but won't fire? Could be fuel pump or ignition.\n\nFor battery issues, you can try a jump start. For anything else, you'll need professional help.\n\nCall us at +971 50 854 2006 — we can often diagnose over the phone and tell you if you need a tow. Garage: A04, Industrial Area 12, University City Rd, Sharjah."
+    },
+    // ======== AC / AIR CONDITIONING ========
+    {
+      keywords: ['ac','a/c','air conditioning','air con','aircon','cool','cooling','warm air','hot air','ac not cold','ac blowing','air conditioner','climate control','hvac'],
+      followUp: 'Is the AC blowing air but it\'s not cold, or is there no air coming out at all? Also, have you noticed any unusual smells when the AC runs?',
+      responses: [
+        {
+          match: ['not cold','warm','hot','blows warm','blows hot','lukewarm','not cool'],
+          text: "AC blowing warm air in this Gulf heat is no fun. The most common cause is low refrigerant — either from a slow leak or natural loss over time.\n\nOther possibilities: a failing compressor, clogged condenser, or a bad expansion valve.\n\nThis isn't really a DIY fix — refrigerant handling requires special equipment and it's important to check for leaks before just re-gassing.\n\nUrgency: Routine — but don't wait too long in this heat!\n\nWe can re-gas your AC and check for leaks. Bring it by: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+        },
+        {
+          match: ['no air','nothing coming','not blowing','no flow','fan not','fan stopped','no wind'],
+          text: "If there's no airflow at all, the blower motor might have failed, or there could be a fuse issue.\n\nQuick DIY check:\n1. Check your car's fuse box (usually under the dashboard or hood) — look for the AC/blower fuse.\n2. If a fuse is blown (broken wire inside), replace it with one of the same amperage.\n3. If the fuse keeps blowing, there's an electrical issue.\n\nIf the fuse is fine, the blower motor likely needs replacement.\n\nUrgency: Routine — schedule within a week.\n\nWe can diagnose and fix this quickly. WhatsApp us: +971 50 854 2006."
+        },
+        {
+          match: ['smell','musty','bad smell','stink','odor','odour','mold','mould','funky'],
+          text: "A musty or bad smell from the AC is usually mold/bacteria buildup in the evaporator or cabin filter.\n\nDIY fix you can try:\n1. Replace the cabin air filter — it's usually behind the glove box. Pull out the old one and slide in a new one (you can get one from any auto parts store for your car model).\n2. Run the AC on max for 10 minutes with windows open to help dry out the system.\n3. You can spray an AC disinfectant into the cabin filter area.\n\nIf the smell persists after replacing the filter, the evaporator needs professional cleaning.\n\nNeed help? Come by our garage or WhatsApp: +971 50 854 2006."
+        }
+      ],
+      fallback: "AC issues in this climate need quick attention. The most common problems are low refrigerant, a dirty cabin filter, or a failing compressor.\n\nQuick thing to try: replace your cabin air filter (behind the glove box in most cars). A clogged filter reduces airflow and can cause bad smells.\n\nFor cooling issues (warm air), you'll need a professional re-gas and leak check.\n\nUrgency: Routine — but schedule soon before the peak summer heat.\n\nWe handle all AC services — re-gassing, leak checks, compressor diagnostics. Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+    },
+    // ======== OVERHEATING ========
+    {
+      keywords: ['overheat','overheating','temperature','temp gauge','hot engine','coolant','radiator','steam','steaming','boiling','gauge red','temp warning','temp high','running hot'],
+      followUp: 'Is the temperature gauge in the red zone right now, or does it climb up only in certain conditions (like traffic or highway)? Do you see any steam or smell sweet coolant?',
+      responses: [
+        {
+          match: ['red','now','currently','right now','steam','smoking','steaming','boiling'],
+          text: "⚠️ If your engine is overheating right now — STOP DRIVING IMMEDIATELY. Pull over safely and turn the engine off.\n\nDo NOT open the radiator cap — the coolant is under pressure and will scald you.\n\nUrgency: URGENT — do not drive further.\n\n1. Turn the engine off and let it cool for at least 30 minutes.\n2. Check the coolant reservoir (when cool) — is it empty? You may have a leak.\n3. Call us immediately: +971 50 854 2006 — we'll advise whether you can top up and limp here, or need a tow.\n\nDriving an overheating engine can crack the head gasket — a very expensive repair. Don't risk it."
+        },
+        {
+          match: ['traffic','slow','idle','stop and go','city','sitting','climb','gradually','sometimes'],
+          text: "Overheating mainly in traffic or at idle usually points to a cooling fan issue — the fan that pulls air through the radiator when you're not moving fast.\n\nIt could be: a bad fan motor, blown fan fuse, faulty temperature sensor, or low coolant.\n\nQuick check: when the engine is warm, pop the hood and see if the radiator fan is spinning. If not, check the fan fuse.\n\nDon't keep driving if the gauge hits red — pull over and let it cool.\n\nUrgency: Soon — within a couple of days.\n\nBring it to us: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. WhatsApp: +971 50 854 2006."
+        }
+      ],
+      fallback: "Engine overheating is serious and can cause major damage if ignored.\n\nImmediate steps:\n1. If the gauge is in the red, pull over and turn off the engine NOW.\n2. Wait 30 minutes for it to cool — never open the radiator cap when hot.\n3. Check coolant level in the reservoir (marked MIN/MAX on the side).\n4. If low, you can add water temporarily to get to a garage, but don't push it.\n\nCommon causes: coolant leak, bad thermostat, failed water pump, or broken fan.\n\nUrgency: Urgent if actively overheating, Soon otherwise.\n\nCall us: +971 50 854 2006. Garage no: A04, Industrial Area 12, University City Rd, Sharjah."
+    },
+    // ======== TIRE PRESSURE ========
+    {
+      keywords: ['tire','tyre','flat','pressure','tpms','low pressure','tire light','tire pressure','tyre pressure','inflate','deflate','puncture','nail in tire'],
+      followUp: 'Is one specific tire visibly low/flat, or did the tire pressure warning light come on? Can you see any nails, screws, or damage on the tire?',
+      responses: [
+        {
+          match: ['light','warning','tpms','sensor','all','reset'],
+          text: "If the TPMS warning light came on, here's what to do:\n\nDIY fix:\n1. Drive to the nearest gas station with an air pump (most stations in Sharjah have free air).\n2. Check the recommended pressure on the sticker inside your driver's door (usually 30-35 PSI).\n3. Fill all 4 tires to the recommended pressure.\n4. The TPMS light should turn off after a few minutes of driving.\n\nTip: Check pressures in the morning when tires are cool — heat gives false readings.\n\nIf the light keeps coming back, you may have a slow leak. Come by and we'll check for free. +971 50 854 2006."
+        },
+        {
+          match: ['nail','screw','puncture','hole','leak','slow leak','keeps losing','flat again'],
+          text: "A nail or screw in the tire can often be repaired if it's in the tread area (the flat part that touches the road). If it's on the sidewall, the tire needs replacement — sidewall repairs are not safe.\n\nDon't pull the nail out! It's actually acting as a plug right now. Just top up the tire pressure and drive carefully to a shop.\n\nWe do tire puncture repairs quickly and affordably. Drive over to: Garage no: A04, Industrial Area 12, University City Rd, Sharjah.\n\nOr if it's completely flat, call us: +971 50 854 2006."
+        },
+        {
+          match: ['flat','completely flat','very low','can\'t drive','won\'t hold'],
+          text: "If the tire is completely flat:\n\n1. Don't drive on it — you'll damage the rim and the tire beyond repair.\n2. Use your spare tire if you have one (check your trunk). Most cars have a jack and lug wrench under the trunk floor.\n3. If you don't have a spare, call us and we'll help: +971 50 854 2006.\n\nSpare tire tip: Spare tires (especially the small ones) are only meant for short distances at low speed — max 80 km/h, get to a shop as soon as possible.\n\nWe're at: Garage no: A04, Industrial Area 12, University City Rd, Sharjah."
+        }
+      ],
+      fallback: "Tire issues are common but important to handle properly.\n\nDIY basics:\n1. Check the recommended pressure on the sticker inside your driver's door.\n2. Fill tires at any gas station air pump — check when tires are cool (morning is best).\n3. Look for nails/screws — if you find one, don't pull it out, just come to us.\n4. If a tire is completely flat, use your spare and come get it fixed.\n\nRegular pressure checks save fuel and prevent blowouts — especially important in Gulf summer heat.\n\nWe can patch punctures, balance, and align. Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+    },
+    // ======== OIL ========
+    {
+      keywords: ['oil','oil change','oil light','oil pressure','oil leak','oil low','oil warning','engine oil','oil level','dipstick','oil smell','burning oil','oil smoke'],
+      followUp: 'Is an oil warning light on your dashboard, or are you noticing something else — like an oil smell, smoke, or spots under the car?',
+      responses: [
+        {
+          match: ['light','warning','dashboard','oil lamp','oil icon'],
+          text: "⚠️ An oil warning light means LOW OIL PRESSURE — this is serious.\n\n1. Pull over safely as soon as possible and turn off the engine.\n2. Wait 5 minutes, then check the oil level with the dipstick (yellow handle under the hood).\n3. If the oil level is below the minimum mark, add oil. Any oil is better than no oil in an emergency — but try to match what your car uses (usually 5W-30 or 5W-40).\n4. If the level is fine but the light stays on, DO NOT keep driving — could be an oil pump failure.\n\nUrgency: Urgent — engine damage happens fast without oil.\n\nCall us: +971 50 854 2006."
+        },
+        {
+          match: ['leak','spot','drip','puddle','under','ground','parking','driveway'],
+          text: "Oil spots under your car mean a leak somewhere. Small drips are common in older cars, but they get worse over time.\n\nQuick check: is the oil dark brown/black and slick? That's engine oil. If it's red/pink, that's transmission fluid. If it's green/orange, that's coolant.\n\nFor a small engine oil leak, check your oil level regularly and top up as needed. But get it fixed before it becomes a big leak.\n\nUrgency: Routine — schedule within a week or two.\n\nBring it by and we'll find the leak: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. WhatsApp: +971 50 854 2006."
+        },
+        {
+          match: ['change','due','overdue','mileage','schedule','when','how often','interval'],
+          text: "Oil changes are the single most important maintenance item for your engine.\n\nGeneral guidelines:\n• Conventional oil: every 5,000 km\n• Synthetic oil: every 10,000 km\n• In Gulf heat and dusty conditions, lean toward the shorter interval.\n\nWhat you'll need for a DIY oil change: correct oil type/weight for your car, new oil filter, drain pan, and a wrench. But honestly, it's inexpensive to have it done professionally and much less messy.\n\nWe do oil and filter changes quickly at a fair price. Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+        }
+      ],
+      fallback: "Oil is your engine's lifeblood. Here's the basics:\n\n1. Check oil level monthly using the dipstick — it should be between the MIN and MAX marks.\n2. Change oil every 5,000-10,000 km depending on oil type.\n3. If the oil warning light is on, stop driving — low pressure can destroy an engine fast.\n4. Dark spots under the car? Check the oil level and get the leak found.\n\nIn Gulf heat, oil degrades faster, so stick to your schedule.\n\nWe do oil changes, leak repairs, and full engine diagnostics. Garage no: A04, Industrial Area 12, University City Rd, Sharjah. WhatsApp: +971 50 854 2006."
+    },
+    // ======== BATTERY ========
+    {
+      keywords: ['battery','charge','charging','alternator','terminal','corrosion','battery light','battery warning','battery dead','battery drain','jump','jumpstart'],
+      followUp: 'Is the battery completely dead (car won\'t start), or is the battery warning light on while driving? How old is your battery, if you know?',
+      responses: [
+        {
+          match: ['dead','flat','won\'t start','wont start','no power','completely'],
+          text: "A dead battery is the most common breakdown cause. Here's how to deal with it:\n\nDIY jump start:\n1. Get a car with a good battery and jumper cables.\n2. Connect RED cable: good battery (+) → your battery (+).\n3. Connect BLACK cable: good battery (−) → unpainted metal on YOUR engine block (not the battery).\n4. Start the good car, wait 2-3 minutes, then try yours.\n5. Once started, drive for 20+ minutes to recharge.\n\nIf it won't hold a charge, the battery needs replacement. In Gulf heat, batteries typically last 2-3 years.\n\nWe test and replace batteries same-day. Call: +971 50 854 2006."
+        },
+        {
+          match: ['light','warning','while driving','on the dash','indicator'],
+          text: "A battery warning light while driving usually means the alternator (the part that charges your battery while you drive) is failing.\n\nThis means your car is running purely on battery power — you have limited time before it dies.\n\n1. Turn off AC, radio, and everything non-essential to save power.\n2. Drive directly to the nearest garage — don't stop and restart.\n\nUrgency: Soon — if the alternator has failed, the car will die eventually.\n\nHead straight to us if you can: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+        },
+        {
+          match: ['corrosion','terminal','white','green','crusty','buildup','corroded'],
+          text: "Corroded battery terminals are a very common issue, especially in humid Gulf conditions. Great news — this is an easy DIY fix!\n\nDIY steps:\n1. Turn off the engine and remove the key.\n2. Disconnect the NEGATIVE (−) terminal first, then POSITIVE (+).\n3. Mix baking soda + water into a paste.\n4. Scrub the terminals and cable ends with an old toothbrush and the paste.\n5. Rinse with clean water and dry.\n6. Reconnect POSITIVE (+) first, then NEGATIVE (−).\n7. Apply a thin layer of petroleum jelly (Vaseline) to prevent future corrosion.\n\nThis often fixes random no-start issues. If problems continue, the battery may need replacement."
+        }
+      ],
+      fallback: "Battery problems are the #1 cause of breakdowns. Here are the essentials:\n\n1. Batteries last 2-3 years in Gulf heat — know how old yours is.\n2. If it's dead, try a jump start (red to +, black to engine ground).\n3. White/green crust on terminals? Clean with baking soda + water.\n4. Battery light while driving = alternator issue — don't turn off the car, drive straight to a shop.\n\nWe do free battery testing and same-day replacement. Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+    },
+    // ======== TRANSMISSION ========
+    {
+      keywords: ['transmission','gear','gears','shifting','shift','gearbox','automatic','manual','clutch','slipping','jerking','rough shift','hard shift','gear change','transmission fluid','atf'],
+      followUp: 'Is your car automatic or manual? And what exactly happens — rough/jerky shifts, slipping (engine revs but car doesn\'t accelerate), or difficulty getting into gear?',
+      responses: [
+        {
+          match: ['slip','slipping','rev','revving','revs','accelerat','won\'t engage','not catching'],
+          text: "Transmission slipping — where the engine revs up but the car doesn't respond — is a serious issue. It could be low transmission fluid, worn clutch packs, or internal transmission damage.\n\nDo NOT ignore this. Continued driving can turn a repairable issue into a full transmission replacement (very expensive).\n\nUrgency: Soon — within a day or two. Drive gently and avoid hard acceleration.\n\nThis needs professional diagnosis. Bring it to Nujoom Al Nukhbah: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+        },
+        {
+          match: ['jerk','jerky','rough','hard','harsh','bang','slam','clunk','delay'],
+          text: "Rough or jerky shifts can be caused by several things:\n• Low or dirty transmission fluid\n• Failing solenoids\n• Worn transmission mounts\n\nQuick check (for automatics): check the transmission fluid level and condition. It should be reddish and not smell burnt. Dark brown fluid that smells burnt = overdue for a change.\n\nNote: Some cars have sealed transmissions with no dipstick — those need professional service.\n\nUrgency: Routine to Soon, depending on severity.\n\nWe can diagnose this accurately with our scanning tools. WhatsApp: +971 50 854 2006."
+        }
+      ],
+      fallback: "Transmission issues need professional attention — DIY transmission work is risky and complex.\n\nSigns something is wrong: jerky shifts, slipping, delayed engagement, unusual noises in gear, or leaking red fluid.\n\nOne thing you can check: transmission fluid level and color (if your car has a dipstick for it). Should be reddish, not dark brown or burnt-smelling.\n\nUrgency: Soon — transmission problems tend to get worse and more expensive.\n\nBring it to us for a proper diagnosis: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call/WhatsApp: +971 50 854 2006."
+    },
+    // ======== STEERING ========
+    {
+      keywords: ['steering','power steering','steering wheel','vibrat','shak','wobble','pull','pulling','drift','hard to turn','stiff','loose steering','wander'],
+      followUp: 'Does the issue happen at a specific speed (like highway speed or low speed), and do you feel it in the steering wheel, the whole car, or both?',
+      responses: [
+        {
+          match: ['vibrat','shak','wobble','highway','high speed','fast','60','80','100','120'],
+          text: "Vibration at highway speeds is usually a wheel balance issue — one or more wheels have uneven weight distribution.\n\nThis is a simple fix: wheel balancing (and possibly alignment).\n\nOther possibilities: warped brake rotors (vibration during braking), worn tie rods, or tire flat spots.\n\nUrgency: Routine — but don't ignore it, as it causes uneven tire wear.\n\nWe do wheel balancing and alignment. Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+        },
+        {
+          match: ['pull','drift','one side','left','right','straight'],
+          text: "A car pulling to one side is usually an alignment issue, which happens naturally over time (and faster on rough roads).\n\nIt could also be: uneven tire pressure (check all 4 tires first — free fix!), a stuck brake caliper, or worn suspension parts.\n\nDIY first step: Check that all tires are inflated to the same recommended pressure. This alone fixes the issue surprisingly often.\n\nIf it still pulls, you need an alignment.\n\nUrgency: Routine — schedule within a couple of weeks.\n\nWe do computerized alignments. WhatsApp: +971 50 854 2006."
+        },
+        {
+          match: ['hard','stiff','heavy','difficult','power steering','fluid','whine','squeal','groan'],
+          text: "Heavy or stiff steering points to a power steering issue — low fluid, a failing pump, or a bad rack.\n\nIf you hear a whining or groaning noise when turning, that's usually the power steering pump running low on fluid.\n\nQuick check: pop the hood and find the power steering fluid reservoir (usually has a steering wheel icon). If it's low, top it up with the correct power steering fluid.\n\nIf it keeps getting low, there's a leak that needs fixing.\n\nUrgency: Soon — steering issues affect safety.\n\nBring it to: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+        }
+      ],
+      fallback: "Steering problems affect your safety and shouldn't be ignored.\n\nQuick checks you can do:\n1. Check all tire pressures are equal and correct.\n2. Look at your tires for uneven wear patterns.\n3. Check power steering fluid level under the hood.\n\nFor vibrations, pulling, or stiff steering, you'll likely need professional help — could be alignment, balance, power steering, or suspension.\n\nUrgency: Soon — steering is safety-critical.\n\nWe handle alignment, balancing, and all steering repairs. Garage no: A04, Industrial Area 12, University City Rd, Sharjah. WhatsApp: +971 50 854 2006."
+    },
+    // ======== SUSPENSION / NOISE OVER BUMPS ========
+    {
+      keywords: ['suspension','shock','absorber','strut','bump','bouncy','bounce','clunk','knock','thud','rough ride','bump noise','pothole','spring','sway bar'],
+      followUp: 'Do you hear the noise over every bump, or only specific ones? And is it coming from the front, back, or one specific corner?',
+      responses: [
+        {
+          match: ['every bump','all bumps','constant','always','front','both sides'],
+          text: "Clunking or knocking over bumps usually means worn shock absorbers, strut mounts, or sway bar links. These are common wear items, especially with Sharjah's road conditions.\n\nSimple test: push down hard on each corner of the car and let go. If it bounces more than once, the shocks are worn.\n\nWorn shocks don't just hurt comfort — they reduce braking distance and handling.\n\nUrgency: Routine to Soon, depending on severity.\n\nSuspension work requires proper tools and alignment afterward. Bring it to: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+        }
+      ],
+      fallback: "Suspension noises — clunks, knocks, thuds over bumps — usually mean worn parts that need replacement.\n\nCommon culprits: shock absorbers, strut mounts, sway bar links, control arm bushings, or ball joints.\n\nDIY check: push down hard on each corner of your car — if it bounces more than 1-2 times, the shocks are worn.\n\nSuspension work is best left to professionals — it affects handling, braking, and tire wear.\n\nUrgency: Routine — but don't ignore it too long.\n\nWe inspect and repair suspension at fair prices. Garage no: A04, Industrial Area 12, University City Rd, Sharjah. WhatsApp: +971 50 854 2006."
+    },
+    // ======== EXHAUST / SMOKE ========
+    {
+      keywords: ['smoke','exhaust','white smoke','black smoke','blue smoke','smoking','fumes','emission','catalytic','muffler','exhaust smell','exhaust noise','loud exhaust'],
+      followUp: 'What color is the smoke — white, blue/grey, or black? And does it happen on startup, acceleration, or all the time?',
+      responses: [
+        {
+          match: ['white','steam','startup','cold','morning','coolant'],
+          text: "White smoke on startup that disappears after warming up is usually just condensation — totally normal, especially if you park outdoors overnight.\n\nBUT if white smoke continues after the engine is warm, or if it's thick and sweet-smelling, that's coolant getting into the combustion chamber — possibly a head gasket issue, which is serious.\n\nUrgency: Urgent if it persists after warm-up. Normal if it clears up in a few minutes.\n\nIf it doesn't clear up, call us: +971 50 854 2006. Head gasket issues need immediate attention."
+        },
+        {
+          match: ['blue','grey','gray','oil burn','burning oil','acceleration','rev'],
+          text: "Blue or grey smoke means the engine is burning oil. This could be worn piston rings, valve seals, or a PCV valve issue.\n\nA small amount in older cars with high mileage is common and manageable (just keep the oil topped up). If it's heavy, the engine needs internal work.\n\nUrgency: Soon — continued oil burning leads to engine damage.\n\nThis needs professional diagnosis. Bring it to: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. WhatsApp: +971 50 854 2006."
+        },
+        {
+          match: ['black','rich','fuel','heavy','acceleration','diesel'],
+          text: "Black smoke means the engine is burning too much fuel (running rich).\n\nCommon causes: dirty air filter, faulty fuel injectors, stuck fuel pressure regulator, or a sensor issue.\n\nDIY first step: Check your air filter. Pull it out — if it's dark and clogged with dust (very common in our climate), replace it. A clean air filter can make a big difference.\n\nIf the air filter is clean, you'll need a diagnostic scan.\n\nUrgency: Routine — but you're wasting fuel.\n\nWe can diagnose the cause quickly. Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+        }
+      ],
+      fallback: "Smoke from the exhaust tells a story by its color:\n\n• White smoke (after warm-up): possible coolant leak/head gasket — serious\n• Blue/grey smoke: burning oil — worn seals or rings\n• Black smoke: running rich — could be air filter, injectors, or sensors\n\nA bit of white smoke on cold startup is normal. Anything persistent needs checking.\n\nUrgency: Varies — white smoke after warm-up is urgent, others are soon/routine.\n\nBring it to us for a diagnosis: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+    },
+    // ======== WIPER / WASHER ========
+    {
+      keywords: ['wiper','washer','windshield','windscreen','wiper fluid','washer fluid','streaky','wiper blade','wiper noise','wiper squeak'],
+      followUp: null,
+      responses: [],
+      fallback: "Wiper issues are easy DIY fixes!\n\nFor streaky/noisy wipers:\n1. Buy new wiper blades for your car (any auto parts store — tell them your car model).\n2. Most blades just unclip and clip on — takes 2 minutes per blade.\n3. Clean your windshield with glass cleaner to remove any film.\n\nFor washer fluid:\n1. Open the hood and find the washer fluid reservoir (usually has a windshield icon on the cap).\n2. Fill with washer fluid — you can use water with a splash of dish soap in a pinch, but proper washer fluid cleans better.\n\nThese are simple fixes you can do yourself. But if the wiper motor has stopped working entirely, bring it by and we'll check the motor and fuse. +971 50 854 2006."
+    },
+    // ======== HEADLIGHT / LIGHTS ========
+    {
+      keywords: ['headlight','tail light','brake light','bulb','light out','light not working','dim light','signal','turn signal','blinker','indicator light','fog light','lamp','led','halogen','hid'],
+      followUp: 'Which light is the issue — headlight, tail light, brake light, or turn signal? And is it out completely, or just dim/flickering?',
+      responses: [
+        {
+          match: ['headlight','head light','front','main'],
+          text: "Replacing a headlight bulb is a common DIY fix for many cars:\n\n1. Open the hood and find the back of the headlight assembly.\n2. Disconnect the electrical connector.\n3. Remove the bulb (usually twist and pull, or unclip a retaining wire).\n4. Install the new bulb — DON'T touch the glass with bare fingers (oils cause premature failure). Use a clean cloth.\n5. Reconnect and test.\n\nNote: Some newer cars have sealed headlight units that require removing the bumper — those are better left to a professional.\n\nBulbs are cheap (20-50 AED for most cars). Need help? Come by or call: +971 50 854 2006."
+        },
+        {
+          match: ['brake light','tail','rear','signal','blinker','indicator'],
+          text: "Brake lights and turn signals are usually very easy to replace yourself:\n\n1. Open the trunk and look for the light assembly access panel.\n2. Twist the bulb socket counterclockwise and pull it out.\n3. Pull the old bulb out and push the new one in.\n4. Twist the socket back in and test.\n\nIf your turn signal is blinking faster than normal, that's actually telling you a bulb is out — replace the dead bulb and it'll return to normal speed.\n\nBulbs cost 5-15 AED at most. Easy DIY!\n\nIf you need help, we're here: +971 50 854 2006."
+        }
+      ],
+      fallback: "Most bulb replacements are simple DIY jobs — bulbs are cheap (5-50 AED) and many can be done without tools.\n\nTip: When replacing bulbs, don't touch the glass with bare fingers — use a cloth. The oil from your skin shortens bulb life.\n\nIf you have a modern car with LED headlights, or if the light housing is cracked/damaged, bring it to us for proper repair.\n\nDriving with a light out is illegal in the UAE and can get you fined. Fix it soon!\n\nGarage no: A04, Industrial Area 12, University City Rd, Sharjah. WhatsApp: +971 50 854 2006."
+    },
+    // ======== GAS CAP ========
+    {
+      keywords: ['gas cap','fuel cap','petrol cap','fuel smell','petrol smell','gas smell','fuel door'],
+      followUp: null,
+      responses: [],
+      fallback: "A loose or damaged gas cap is one of the most common (and cheapest!) causes of a check engine light.\n\nDIY fix:\n1. Remove the gas cap and check the rubber seal — if it's cracked, dried out, or damaged, it needs replacing.\n2. Put the cap back on and turn it until it clicks (should click 2-3 times).\n3. Drive for a day or two — if the check engine light was caused by the cap, it'll turn off on its own.\n\nA new gas cap costs 15-30 AED and you can buy one for your car model at any auto parts shop.\n\nIf you're smelling fuel and the cap seems fine, there could be a fuel leak — that's serious. Call us: +971 50 854 2006."
+    },
+    // ======== FUSE ========
+    {
+      keywords: ['fuse','fuse box','blown fuse','electrical','cigarette lighter','usb not working','outlet','power window stuck','window not working','power lock'],
+      followUp: 'What exactly stopped working — a specific window, power outlet, radio, or something else?',
+      responses: [
+        {
+          match: ['window','power window'],
+          text: "If one power window stopped working:\n\n1. First, check the fuse — your owner's manual shows which fuse controls power windows.\n2. Fuse boxes are usually under the dashboard (driver side) or under the hood.\n3. Pull the fuse out and look through it — if the thin wire inside is broken, it's blown.\n4. Replace with a fuse of the SAME amperage (the number on top, like 20A, 25A).\n\nIf the fuse is fine, or keeps blowing, the window motor or regulator may be failing — that needs professional repair.\n\nWe fix power windows regularly. Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+        }
+      ],
+      fallback: "Many electrical issues in cars are caused by a simple blown fuse — and replacing one is easy!\n\nDIY fuse replacement:\n1. Find your fuse box (check owner's manual — usually under the dashboard or hood).\n2. The fuse box lid usually has a diagram showing which fuse controls what.\n3. Pull out the suspect fuse with the plastic puller tool (usually stored in the fuse box).\n4. If the thin wire inside is broken, it's blown. Replace with the SAME amperage fuse.\n\n⚠️ Important: If a new fuse blows again immediately, there's a short circuit — stop and bring it to a professional.\n\nWe diagnose electrical issues: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+    },
+    // ======== NOISE / GENERAL SOUNDS ========
+    {
+      keywords: ['noise','sound','rattle','hum','humming','buzz','buzzing','whine','whining','squeal','screech','knock','knocking','tick','ticking','clatter','rumble'],
+      followUp: 'Can you describe the noise a bit more? When does it happen — startup, acceleration, turning, braking, or all the time? And where does it seem to come from — front, back, engine area, or underneath?',
+      responses: [
+        {
+          match: ['start','idle','cold','morning','engine','tick','ticking'],
+          text: "Ticking or tapping noises on startup that fade as the engine warms up are often normal — it's called hydraulic lifter noise and happens when oil hasn't fully circulated yet.\n\nHowever, if the ticking is loud, persistent, or gets worse, it could be:\n• Low oil level (check your dipstick!)\n• Worn timing chain/belt\n• Exhaust manifold leak\n\nDIY step: Check your oil level. If it's low, top it up and see if the noise improves.\n\nIf it doesn't improve, let us take a listen: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+        },
+        {
+          match: ['turn','corner','steering','wheel','cv','axle'],
+          text: "Clicking or popping noise when turning is a classic sign of a worn CV joint (constant velocity joint). This is the joint that connects the axle to the wheels.\n\nYou might also notice grease splatter on the inside of your wheels — that's from a torn CV boot leaking grease.\n\nThis needs professional replacement. If left too long, the joint can fail completely, which is dangerous.\n\nUrgency: Soon — within the next week.\n\nBring it by: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. WhatsApp: +971 50 854 2006."
+        },
+        {
+          match: ['accelerat','speed','highway','fast','rpm','rev','revving','whine','hum'],
+          text: "Noises that change with speed or RPM could be:\n• Wheel bearing (hum/drone that changes with speed, not RPM)\n• Transmission issue (whine that changes with RPM)\n• Exhaust leak (rumble or drone)\n• Tire noise (uneven tire wear causes humming)\n\nQuick check: if the noise changes when you swerve slightly left or right, it's likely a wheel bearing on one side.\n\nUrgency: Routine to Soon, depending on severity.\n\nLet us listen and diagnose it: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+        }
+      ],
+      fallback: "Car noises are hard to diagnose without hearing them, but here are the common ones:\n\n• Grinding when braking → worn brake pads\n• Clicking when turning → CV joint\n• Humming that changes with speed → wheel bearing\n• Squealing on startup → serpentine belt\n• Knocking from engine → could be serious, check oil level first\n• Rattling underneath → loose heat shield (common and cheap fix)\n\nIf you can record the noise on your phone, that helps us diagnose before you come in.\n\nWhatsApp us the recording: +971 50 854 2006. Garage no: A04, Industrial Area 12, University City Rd, Sharjah."
+    },
+    // ======== BELT / SERPENTINE ========
+    {
+      keywords: ['belt','serpentine','squealing belt','fan belt','timing belt','timing chain','v-belt','accessory belt','belt noise','belt squeal'],
+      followUp: null,
+      responses: [],
+      fallback: "Squealing noise on startup that goes away as the engine warms up is usually the serpentine belt slipping. This belt drives your AC, power steering, and alternator.\n\nIt may just need tightening or replacement. A worn belt can snap and leave you stranded.\n\nDIY: You can visually inspect the belt — if you see cracks, fraying, or glazing (shiny surface), it needs replacement. But replacing it requires the right tools and tension.\n\n⚠️ If your car has a TIMING belt and it's overdue for replacement (check your service manual — usually every 80,000-120,000 km), get it done. A broken timing belt can destroy the engine.\n\nWe replace belts quickly. Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+    },
+    // ======== WATER / COOLANT LEAK ========
+    {
+      keywords: ['water leak','coolant leak','antifreeze','green fluid','orange fluid','pink fluid','sweet smell','leaking underneath','puddle','dripping','hose','radiator leak'],
+      followUp: null,
+      responses: [],
+      fallback: "Coolant leaks (green, orange, or pink fluid under the car) need attention — low coolant leads to overheating.\n\nDIY checks:\n1. When the engine is COOL, check the coolant reservoir level (MIN/MAX marks on the side).\n2. Top up with the correct coolant type mixed 50/50 with distilled water.\n3. Check visible hoses under the hood for cracks or wet spots.\n\n⚠️ NEVER open the radiator cap when the engine is hot — pressurized steam can cause serious burns.\n\nIf you're losing coolant regularly, there's a leak that needs professional diagnosis (could be a hose, water pump, or head gasket).\n\nUrgency: Soon — overheating risk.\n\nBring it to: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+    },
+    // ======== AIR FILTER ========
+    {
+      keywords: ['air filter','engine filter','cabin filter','filter change','dusty','clogged filter','dirty filter','dust','pollen filter'],
+      followUp: 'Are you asking about the engine air filter (under the hood) or the cabin/AC air filter (inside the car)?',
+      responses: [
+        {
+          match: ['engine','hood','performance','power','acceleration'],
+          text: "The engine air filter keeps dust and debris out of your engine — super important in our dusty climate.\n\nDIY replacement (easy!):\n1. Open the hood and find the air filter box (usually a large black plastic box with clips).\n2. Unclip the box and lift the lid.\n3. Pull out the old filter — if it's dark grey/brown and clogged with dust, it's time.\n4. Drop in the new filter (make sure it sits flat) and close the box.\n\nReplace every 15,000-20,000 km, or more often in dusty conditions. Costs 30-80 AED at auto parts stores.\n\nA clean filter improves fuel economy and engine performance!"
+        },
+        {
+          match: ['cabin','ac','smell','inside','car','passenger','air quality'],
+          text: "The cabin air filter cleans the air that comes through your AC and heating vents.\n\nDIY replacement (easy!):\n1. Open your glove box and squeeze the sides to drop it down (most cars).\n2. You'll see the cabin filter housing — slide the old filter out.\n3. Slide the new one in (check the airflow direction arrow).\n4. Close the glove box.\n\nReplace every 15,000-20,000 km. In our dusty climate, you might need to do it more often.\n\nA dirty cabin filter causes musty AC smells and reduced airflow. Costs 25-60 AED for most cars.\n\nNeed help finding the right filter? WhatsApp us your car model: +971 50 854 2006."
+        }
+      ],
+      fallback: "Air filters are cheap, easy to replace, and make a real difference — especially in Gulf conditions with heat and dust.\n\nEngine air filter: Replace every 15,000-20,000 km. Found under the hood in the air box.\nCabin air filter: Replace every 15,000-20,000 km. Usually behind the glove box.\n\nBoth are easy DIY jobs — no tools needed for most cars. Cost: 25-80 AED each.\n\nA clogged engine filter hurts fuel economy. A clogged cabin filter causes bad AC smell and weak airflow.\n\nNeed help? We can replace both in minutes. Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+    },
+    // ======== SPARK PLUG ========
+    {
+      keywords: ['spark plug','misfire','rough idle','shaky idle','engine shake','stumble','hesitation','miss','missing','sputter'],
+      followUp: null,
+      responses: [],
+      fallback: "Rough idle, misfires, or hesitation often point to spark plugs that need replacement.\n\nSpark plugs last about 30,000-60,000 km (check your manual). Signs they're worn:\n• Rough or shaky idle\n• Hesitation during acceleration\n• Check engine light (misfire code)\n• Poor fuel economy\n\nWhile spark plug replacement is technically a DIY job, it's easy to get wrong (wrong gap, cross-threaded, wrong type), which can cause bigger problems.\n\nUrgency: Routine — but driving with misfires wastes fuel and can damage the catalytic converter.\n\nWe can check and replace spark plugs for your car. Garage no: A04, Industrial Area 12, University City Rd, Sharjah. WhatsApp: +971 50 854 2006."
+    },
+    // ======== FUEL ========
+    {
+      keywords: ['fuel','petrol','diesel','fuel economy','fuel consumption','mpg','km/l','gas mileage','fuel efficiency','drinking fuel','burning fuel','too much fuel','wrong fuel','fuel filter','fuel pump'],
+      followUp: 'Are you seeing worse fuel economy than usual, or is there a specific fuel-related issue like a fuel smell, stalling, or difficulty starting?',
+      responses: [
+        {
+          match: ['economy','consumption','mileage','too much','drinking','worse','bad','more fuel'],
+          text: "Poor fuel economy is frustrating. Common causes and fixes:\n\nDIY checks:\n1. Check tire pressure — underinflated tires increase fuel consumption significantly. Fill to the recommended PSI.\n2. Replace the engine air filter if it's clogged.\n3. Check for a dirty/old spark plug set.\n4. Make sure you're not carrying unnecessary heavy items.\n\nDriving habits matter too — gradual acceleration and maintaining steady speeds help.\n\nIf fuel economy suddenly dropped a lot, there could be a sensor issue (oxygen sensor, MAF sensor) that needs scanning.\n\nWe can run a full diagnostic: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+        },
+        {
+          match: ['smell','stall','stalling','die','dies','hesitat','sputter','cut out','pump','pressure'],
+          text: "Fuel smell, stalling, or sputtering could indicate a fuel system issue — this can range from a dirty fuel filter to a failing fuel pump.\n\n⚠️ If you smell raw fuel, this is a potential fire hazard. Don't ignore it.\n\nUrgency: Soon to Urgent (if fuel smell is present).\n\nFuel system work is not a safe DIY job — it involves flammable materials under pressure.\n\nBring it to us: Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+        }
+      ],
+      fallback: "Fuel-related issues need careful diagnosis. Here's a quick guide:\n\n• Bad fuel economy: Check tire pressure, air filter, and spark plugs first.\n• Fuel smell: Could be a gas cap, fuel line, or injector leak — take this seriously.\n• Stalling/sputtering: Often fuel filter or fuel pump related.\n• Wrong fuel (petrol in diesel or vice versa): DON'T start the engine — it needs to be drained.\n\nFuel system work should be professional — fire risk is real.\n\nWe handle all fuel system diagnostics and repairs. Garage no: A04, Industrial Area 12, University City Rd, Sharjah. Call: +971 50 854 2006."
+    }
+  ];
+
+  // Conversation state
+  let conversationState = 'idle'; // idle, awaiting_followup
+  let currentTopic = null;
+  let isSending = false;
+
+  function addMessage(role, text){
+    const div = document.createElement('div');
+    div.className = 'msg ' + (role === 'user' ? 'user' : 'bot');
+    div.textContent = text;
+    chatBody.appendChild(div);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    return div;
+  }
+
+  function showTyping(){
+    const div = document.createElement('div');
+    div.className = 'typing';
+    div.id = 'typingIndicator';
+    div.innerHTML = '<span></span><span></span><span></span>';
+    chatBody.appendChild(div);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+  function hideTyping(){
+    const t = document.getElementById('typingIndicator');
+    if(t) t.remove();
+  }
+
+  // Find the best matching KB entry for a user message
+  function findTopic(text) {
+    const lower = text.toLowerCase();
+    let bestMatch = null;
+    let bestScore = 0;
+    for (const entry of KB) {
+      let score = 0;
+      for (const kw of entry.keywords) {
+        if (lower.includes(kw)) score++;
+      }
+      if (score > bestScore) {
+        bestScore = score;
+        bestMatch = entry;
+      }
+    }
+    return bestScore > 0 ? bestMatch : null;
+  }
+
+  // Find best sub-response within a topic
+  function findSubResponse(topic, text) {
+    const lower = text.toLowerCase();
+    let bestResp = null;
+    let bestScore = 0;
+    for (const resp of topic.responses) {
+      let score = 0;
+      for (const m of resp.match) {
+        if (lower.includes(m)) score++;
+      }
+      if (score > bestScore) {
+        bestScore = score;
+        bestResp = resp;
+      }
+    }
+    return bestResp;
+  }
+
+  // Generate response for the user's message
+  function generateResponse(userText) {
+    const lower = userText.toLowerCase();
+
+    // Handle greetings
+    if (/^(hi|hello|hey|salam|marhaba|good morning|good evening|hola|yo|sup|assalam)/.test(lower.trim())) {
+      return "Hey there! 👋 I'm here to help with your car. Tell me what's going on — a noise, a warning light, a problem starting, anything — and I'll help you figure out the next step.";
+    }
+
+    // Handle thank you
+    if (/^(thank|thanks|thx|shukran|appreciate)/.test(lower.trim())) {
+      return "You're welcome! Happy I could help. If you need anything else, just ask. And remember, we're always here at Nujoom Al Nukhbah — Garage no: A04, Industrial Area 12, University City Rd, Sharjah. WhatsApp: +971 50 854 2006. Drive safe! 🚗";
+    }
+
+    // Handle pricing questions
+    if (/price|cost|how much|charge|fee|rate|expensive|cheap|afford/.test(lower)) {
+      return "Great question! Pricing depends on your specific car make, model, and the exact work needed. We always give you an honest quote before starting any work — no surprises.\n\nFor a quick estimate, WhatsApp us your car details and what you need: +971 50 854 2006. We'll reply fast.\n\nOur garage: A04, Industrial Area 12, University City Rd, Sharjah.";
+    }
+
+    // Handle location/hours questions
+    if (/where|location|address|direction|find you|hours|open|close|when|time|working|schedule|friday/.test(lower)) {
+      return "Here's how to find us:\n\n📍 Garage no: A04, Industrial Area 12, University City Rd, Sharjah\n🕐 Saturday – Thursday: 9:00 AM – 10:00 PM\n🚫 Closed on Fridays\n📱 Call/WhatsApp: +971 50 854 2006 or +971 52 682 6930\n\nYou can walk in anytime during working hours — no appointment needed!";
+    }
+
+    // Handle booking/appointment
+    if (/book|appointment|schedule|reserve|come in|bring|visit|drop off/.test(lower)) {
+      return "You're welcome to just walk in — no appointment needed! We're open Saturday to Thursday, 9 AM to 10 PM.\n\nOr if you'd like to let us know you're coming, send a WhatsApp message with your car model and the issue: +971 50 854 2006.\n\nGarage no: A04, Industrial Area 12, University City Rd, Sharjah. See you soon! 🔧";
+    }
+
+    // If we're awaiting a follow-up response
+    if (conversationState === 'awaiting_followup' && currentTopic) {
+      conversationState = 'idle';
+      // Try to match the user's response to a sub-response
+      const subResp = findSubResponse(currentTopic, userText);
+      if (subResp) {
+        const result = subResp.text;
+        currentTopic = null;
+        return result;
+      }
+      // Also check if user mentioned a new topic entirely
+      const newTopic = findTopic(userText);
+      if (newTopic && newTopic !== currentTopic) {
+        // New topic detected, handle it
+        const fallbackResult = currentTopic.fallback;
+        currentTopic = null;
+        // But first give the fallback for the old topic, then on next message handle new one
+        // Actually, let's just try the new topic
+        if (newTopic.followUp && newTopic.responses.length > 0) {
+          currentTopic = newTopic;
+          conversationState = 'awaiting_followup';
+          return newTopic.followUp;
+        }
+        return newTopic.fallback;
+      }
+      // No sub-match found, give fallback for current topic
+      const fallback = currentTopic.fallback;
+      currentTopic = null;
+      return fallback;
+    }
+
+    // Try to match a topic
+    const topic = findTopic(userText);
+    if (topic) {
+      // If topic has follow-up questions and sub-responses, ask follow-up
+      if (topic.followUp && topic.responses.length > 0) {
+        // But first check if the user already gave enough detail for a sub-response
+        const subResp = findSubResponse(topic, userText);
+        if (subResp) {
+          return subResp.text;
+        }
+        // Need more info — ask follow-up
+        currentTopic = topic;
+        conversationState = 'awaiting_followup';
+        return topic.followUp;
+      }
+      // No follow-up, give direct answer
+      return topic.fallback;
+    }
+
+    // Fallback — no topic matched
+    // Try to give a helpful generic response based on keywords
+    if (/fix|repair|broken|problem|issue|wrong|help|trouble|damage|malfunction/.test(lower)) {
+      return "I'd like to help! Could you give me a bit more detail about what's happening? For example:\n\n• What symptoms are you noticing? (noises, smells, warning lights, performance issues)\n• When does it happen? (startup, driving, braking, turning)\n• How long has it been going on?\n\nThe more detail you share, the better I can guide you — whether it's a DIY fix or something we should look at in the garage.";
+    }
+
+    if (/car|vehicle|auto|drive|driving|motor|engine/.test(lower)) {
+      return "I'm here to help with car issues! Could you describe the specific problem you're experiencing? For example:\n\n• Strange noises (grinding, clicking, humming)\n• Warning lights on the dashboard\n• Starting problems\n• AC not working\n• Leaks under the car\n• Steering or braking issues\n\nTell me what's going on and I'll do my best to help!";
+    }
+
+    return "I'm the Nujoom car assistant — I help with car problems and diagnostics! 🚗\n\nTry telling me about a specific issue, like:\n• \"My brakes are making a grinding noise\"\n• \"The engine light came on\"\n• \"My car won't start\"\n• \"AC is blowing warm air\"\n• \"I see smoke from the exhaust\"\n\nOr if you'd like to speak to our team directly:\n📱 WhatsApp: +971 50 854 2006\n📍 Garage no: A04, Industrial Area 12, University City Rd, Sharjah";
+  }
+
+  function sendMessage(){
+    const text = chatInput.value.trim();
+    if(!text || isSending) return;
+    isSending = true;
+    sendBtn.disabled = true;
+    chipsEl.style.display = 'none';
+
+    addMessage('user', text);
+    chatInput.value = '';
+
+    showTyping();
+
+    // Simulate a natural thinking delay (500-1500ms)
+    const delay = 600 + Math.random() * 900;
+    setTimeout(() => {
+      hideTyping();
+      const reply = generateResponse(text);
+      addMessage('bot', reply);
+      isSending = false;
+      sendBtn.disabled = false;
+      chatInput.focus();
+    }, delay);
+  }
+
+  function quickSend(text){
+    chatInput.value = text;
+    sendMessage();
+  }
+
+  // greeting
+  addMessage('bot', "Hi, I'm the Nujoom AI assistant. Tell me what's going on with your car — a sound, a light, anything unusual — and I'll help you figure out the next step.");
+</script>
+
+</body>
+</html>
